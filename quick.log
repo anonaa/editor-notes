@@ -1,0 +1,48 @@
+# reference
+1. https://neovim.io/doc/user/
+# meta
+1. firstly, a complete word, then abbr it automatically
+2. 
+# contents
+## text models
+1. text_char[]
+  1. c[]_quantity
+    1. show it
+  2. c[]_ele
+  3. c[]_sequenceOfEle
+    1. Sequence can be presented by quantity or quantity's coordinated system => [0], [1], [2], ..., [n-1]
+      1. c[0]: gg0 (simulated by 2D operations)  
+      2. c[n-1]: G$
+      3. c[?]: any char?
+    2. Sequence can be presented by chars, e.g. `foo` (if unique, if not unique foo[] then select)
+      1. gg0/foo`\n`
+        1. n/N
+      2. G$?foo
+2. text_char[][]
+  1. N * c[][]_x:
+    1. N * c[][]_x[0]:
+      1. 0 (N fails, e.g. 40 => 40 instead of 4 * 0, like 4gg => line 4, )
+    2. N * c[][]_x[n-1]:
+      1. $ (without `\n`, if del `\n`, use j)
+    3. c[][]_x[?]:
+      1. 0Nl (start from 0, e.g. char 012 == 02l)
+      2. $Nh
+  1. N * c[][]_y:
+    1. c[][]_ygg
+
+3. text_char[][]_onScreen
+  1. if wrap x, then char[][]_x vs char[][]_x_visual(word wrap)
+  2. if wrap y, then char[][]_y vs char[][]_y_visual(multi columns layout)
+4. cells[][]_onScreena
+## help mechanism
+### cursor
+#### itself
+Its target is char, so it is a highlighted char
+#### it with text
+* c_cur[?]:
+  * N * c[]_cur_bACKWARD(e.g.-3)/fORWARD a char: `\b` / ` `
+  * N * c[]_cur_b/f a word/WORD and stay at first/last char: `b/B`, `ge/gE` / `w/W`, `e/E`
+* c[][]_x_b/f: h / l
+* c[][]_y_b/f: `k` / `j`
+
+
